@@ -14,6 +14,14 @@ def filter_threats(log_lines):
             #add suspicious entries to the list.
             suspicious_entries.append(line) #adding line to suspicious entries
     return suspicious_entries
+
+#Crudely strip characters away from the results to save the IP addresses.
+def extractIP(threats):
+    ips=[]
+    for result in threats:
+        ips.append(result[:16])
+    return ips
+
 def display_results(threats):
     #display each threat identified
     for threat in threats:
@@ -25,5 +33,6 @@ if __name__ == "__main__":
     log_file = 'access.log'
     log_data = read_log(log_file)
     threats = filter_threats(log_data)
-    display_results(threats)
+    extracted=extractIP(threats)
+    display_results(extracted)
 
